@@ -10,7 +10,8 @@ requires-python = ">=3.12"
 dependencies = [
     "pandas (>=2.2.3,<3.0.0)",
     "streamlit (>=1.42.2,<2.0.0)",
-    "pydantic (>=2.10.6,<3.0.0)"
+    "pydantic (>=2.10.6,<3.0.0)",
+    "fastparquet (>=2024.11.0,<2025.0.0)"
 ]
 
 
