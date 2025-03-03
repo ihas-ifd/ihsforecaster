@@ -1,0 +1,18 @@
+[project]
+name = "ihsforecaster"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "Ismael Santana"}
+]
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "pandas (>=2.2.3,<3.0.0)",
+    "streamlit (>=1.42.2,<2.0.0)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
