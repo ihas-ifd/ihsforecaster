@@ -13,10 +13,20 @@ dependencies = [
     "pydantic (>=2.10.6,<3.0.0)",
     "fastparquet (>=2024.11.0,<2025.0.0)",
     "workalendar (>=17.0.0,<18.0.0)",
-    "ruff (>=0.9.9,<0.10.0)"
+    "ruff (>=0.9.9,<0.10.0)",
+    "pyyaml (>=6.0.2,<7.0.0)",
+    "scikit-learn (>=1.6.1,<2.0.0)",
+    "lightgbm (>=4.6.0,<5.0.0)",
+    "xgboost (>=2.1.4,<3.0.0)",
+    "mlforecast (>=1.0.2,<2.0.0)",
+    "feature-engineering (>=2.1.4,<3.0.0)"
 ]
 
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.group.dev.dependencies]
+cmake = "^3.31.6"
+
