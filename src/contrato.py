@@ -1,7 +1,7 @@
 from pydantic import BaseModel, PositiveFloat
 
 
-class HistoricoSupply(BaseModel):
+class HistoricData(BaseModel):
     """
     Modelo de dados para o histórico de fornecimento.
 

@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-from contrato import HistoricoSupply
+from contrato import HistoricData
 from pydantic import ValidationError
 from itertools import product
 from workalendar.america import Brazil
@@ -73,13 +73,13 @@ class DataFrameValidator:
 
     def validate(self, dataframe):
         self.errors = []
-        extra_cols = set(dataframe.columns) - set(HistoricoSupply.model_fields.keys())
+        extra_cols = set(dataframe.columns) - set(HistoricData.model_fields.keys())
         if extra_cols:
             return None, f"Colunas extras detectadas: {', '.join(extra_cols)}"
 
         for index, row in dataframe.iterrows():
             try:
-                _ = HistoricoSupply(**row.to_dict())
+                _ = HistoricData(**row.to_dict())
             except ValidationError as ve:
                 for error in ve.errors():
                     field = error.get("loc", ["unknown"])[0]
