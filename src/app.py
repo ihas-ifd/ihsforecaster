@@ -2,7 +2,6 @@ from frontend import FileValidatorUI
 from backend import ProcessDataController
 
 
-
 def main():
     # Instanciando a UI para o validador
     ui = FileValidatorUI()
