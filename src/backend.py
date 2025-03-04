@@ -486,6 +486,7 @@ class MachineLearningCVPredictions:
         return new_h
 
     def final_format(self, final_output):
+        final_output = final_output.copy()
         final_output["y"] = np.where(final_output["y"] < 0, 0, final_output["y"])
         final_output[["praca", "turno_g"]] = final_output["unique_id"].str.extract(
             r"^(.*?)\|\|(.*)$"

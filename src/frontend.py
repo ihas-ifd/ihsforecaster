@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 from io import BytesIO
+import time
 
 
 class FileValidatorUI:
@@ -66,6 +67,13 @@ class FileValidatorUI:
             # Botão para baixar os resultados como Excel
             self.download_excel(transformed_df)
 
+    def display_stage_message(self, stage, operation_function):
+        with st.spinner(f"{stage} em andamento..."):
+            result = operation_function()
+
+            return result
+      
+        
     def download_excel(self, df):
         output = BytesIO()
         with pd.ExcelWriter(output, engine="xlsxwriter") as writer:
