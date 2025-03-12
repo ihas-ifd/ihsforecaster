@@ -55,7 +55,7 @@ class FileLoader:
             elif uploaded_file.name.endswith(".xlsx") or uploaded_file.name.endswith(
                 ".xls"
             ):
-                self.dataframe = pd.read_excel(uploaded_file)
+                self.dataframe = pd.read_excel(uploaded_file, sheet_name="baseline_ajustado")
             elif uploaded_file.name.endswith(".parquet"):
                 self.dataframe = pd.read_parquet(uploaded_file)
             else:
@@ -81,7 +81,10 @@ class DataFrameValidator():
 
     def validate(self, dataframe):
         self.errors = []
-        extra_cols = set(dataframe.columns) - set(self.model.model_fields.keys())
+        if self.model.__name__ == "BaselinePivoted":
+            extra_cols = set(dataframe.columns[:1]) - set(self.model.model_fields.keys())
+        else:
+            extra_cols = set(dataframe.columns) - set(self.model.model_fields.keys())
         if extra_cols:
             return None, f"Colunas extras detectadas: {', '.join(extra_cols)}"
 
@@ -169,6 +172,12 @@ class DataTransformer:
             df = self.holiday_marker.mark_holidays(df, "ds")
 
         return df
+    
+    def melting(self, df):
+        id_vars_cols = df.columns[:2]
+        df_melted = df.melt(id_vars=id_vars_cols, var_name="ds", value_name="y")
+
+        return df_melted
 
 
 class ModelParamsLoader:
@@ -375,8 +384,10 @@ class ProcessDataController:
         if validation_error:
             return None, validation_error
 
-        # Aplicando transformações ao DataFrame validado
-        transformed_df = self.data_transformer.transform(validated_df)
+        if len(validated_df.columns) > 4:
+            transformed_df = self.data_transformer.melting(validated_df)
+        else:
+            transformed_df = self.data_transformer.transform(validated_df)
         # fcst = self.data_preparation.preprocessing_pipe()
         # prep_df = fcst.preprocess(transformed_df, static_features=[])
 
@@ -384,6 +395,7 @@ class ProcessDataController:
 
 
 class MachineLearningCVPredictions:
+
     def __init__(self, holiday_marker=None):
         self.model_preprocessing = ModelApplyPreprocessing()
         self.fcst = self.model_preprocessing.get_fcst()  # Obtendo o fcst já configurado
@@ -503,3 +515,10 @@ class MachineLearningCVPredictions:
         final_output["ds"] = final_output["ds"].dt.date
 
         return final_output
+
+
+class BaselineAdjustments:
+    def __init__(self, df):
+        self.df = df
+
+    

@@ -20,7 +20,8 @@ dependencies = [
     "window-ops (>=0.0.15,<0.0.16)",
     "xlsxwriter (>=3.2.2,<4.0.0)",
     "matplotlib (>=3.10.1,<4.0.0)",
-    "statsmodels (>=0.14.4,<0.15.0)"
+    "statsmodels (>=0.14.4,<0.15.0)",
+    "openpyxl (>=3.1.5,<4.0.0)"
 ]
 
 

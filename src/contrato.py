@@ -20,4 +20,4 @@ class HistoricData(BaseModel):
 class BaselinePivoted(BaseModel):
     praca: str
     turno_g: str
-    data_valores: Dict[str, float]
+
