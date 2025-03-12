@@ -29,6 +29,7 @@ from xgboost import XGBRegressor
 from lightgbm import LGBMRegressor
 import os
 from utilsforecast.losses import rmse
+from typing import Type
 
 
 class Naive(BaseEstimator):
@@ -68,18 +69,25 @@ class FileLoader:
 
 
 class DataFrameValidator():
-    def __init__(self):
+    def __init__(self, model: Type):
+        """
+        Inicializa o validador de DataFrame.
+
+        Args:
+            model (Type[BaseModel]): O modelo Pydantic usado para validação.
+        """
         self.errors = []
+        self.model = model
 
     def validate(self, dataframe):
         self.errors = []
-        extra_cols = set(dataframe.columns) - set(HistoricData.model_fields.keys())
+        extra_cols = set(dataframe.columns) - set(self.model.model_fields.keys())
         if extra_cols:
             return None, f"Colunas extras detectadas: {', '.join(extra_cols)}"
 
         for index, row in dataframe.iterrows():
             try:
-                _ = HistoricData(**row.to_dict())
+                _ = self.model(**row.to_dict())
             except ValidationError as ve:
                 for error in ve.errors():
                     field = error.get("loc", ["unknown"])[0]
@@ -352,9 +360,9 @@ class ModelApplyPreprocessing:
 
 
 class ProcessDataController:
-    def __init__(self):
+    def __init__(self, model:Type):
         self.file_loader = FileLoader()
-        self.dataframe_validator = DataFrameValidator()
+        self.dataframe_validator = DataFrameValidator(model=model)
         self.data_transformer = DataTransformer()
         self.data_preparation = ModelApplyPreprocessing()
 

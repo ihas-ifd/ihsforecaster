@@ -1,6 +1,7 @@
 from frontend import FileValidatorUI
 from backend import ProcessDataController, MachineLearningCVPredictions
 from functools import partial
+from contrato import HistoricData
 
 
 def main():
@@ -25,7 +26,7 @@ def main():
 
     if uploaded_file is not None:
         # Criar uma instância do controlador para processar os dados
-        controller = ProcessDataController()
+        controller = ProcessDataController(HistoricData)
         ml_actions = MachineLearningCVPredictions()
 
         # Processar os dados
