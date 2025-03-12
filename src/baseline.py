@@ -18,7 +18,7 @@ def main():
     ui = FileValidatorUI()
 
     # Exibindo o cabeçalho
-    ui.display_header()
+    ui.display_header("IHS FORECASTER")
 
     # Carregar o arquivo do usuário
     uploaded_file = ui.upload_file()

@@ -67,7 +67,7 @@ class FileLoader:
         return self.dataframe, None
 
 
-class DataFrameValidator:
+class DataFrameValidator():
     def __init__(self):
         self.errors = []
 

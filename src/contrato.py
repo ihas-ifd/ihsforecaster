@@ -1,4 +1,5 @@
-from pydantic import BaseModel, PositiveFloat
+from pydantic import BaseModel, PositiveFloat, Extra
+from typing import Dict
 
 
 class HistoricData(BaseModel):
@@ -14,3 +15,9 @@ class HistoricData(BaseModel):
     ds: str
     unique_id: str
     y: PositiveFloat
+
+
+class BaselinePivoted(BaseModel):
+    praca: str
+    turno_g: str
+    data_valores: Dict[str, float]

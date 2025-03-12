@@ -42,9 +42,9 @@ class FileValidatorUI:
             unsafe_allow_html=True,
         )
 
-    def display_header(self):
+    def display_header(self, header_name):
         st.markdown(
-            "<div class='main-title'>IHS FORECASTER</div>", unsafe_allow_html=True
+            f"<div class='main-title'>{header_name}</div>", unsafe_allow_html=True
         )
 
     def upload_file(self):
