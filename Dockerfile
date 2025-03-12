@@ -27,4 +27,4 @@ RUN poetry install --no-interaction --no-root
 EXPOSE 8501
 
 # Definir o comando de inicialização
-ENTRYPOINT ["poetry", "run", "streamlit", "run", "src/app.py", "--server.port=8501", "--server.address=0.0.0.0"]
+ENTRYPOINT ["poetry", "run", "streamlit", "run", "src/baseline.py", "--server.port=8501", "--server.address=0.0.0.0"]
